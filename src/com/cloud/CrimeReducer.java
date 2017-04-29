@@ -9,10 +9,12 @@ import org.apache.hadoop.io.Text;
 
 public class CrimeReducer extends Reducer<Text,Text,Text,Text>{
 	
-
+	
+	private Text result = new Text();
     @Override
     protected void reduce(Text key, Iterable<Text> values, Context context)
                         throws IOException, InterruptedException {
-    	//this is reducer class
+
+
     }
 }

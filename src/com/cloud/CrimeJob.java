@@ -2,6 +2,8 @@ package com.cloud;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapreduce.Job;
@@ -14,15 +16,15 @@ public class CrimeJob {
 		// TODO Auto-generated method stub
 		//////////////////////////////////////////////
 		///////////////////////////////////
-		File directory = new File(args[1]);
+		//File directory = new File(args[1]);
 
-		try {
-			delete(directory);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		//try {
+		//	delete(directory);
+		//} catch (IOException e) {
+		//	e.printStackTrace();
+		//}
 		//////////
-
+		FileUtils.deleteDirectory(new File("D:/Cloud/input/data/output"));
 		/////////////////////////////////////////////////
 
 		Job job = new Job();
