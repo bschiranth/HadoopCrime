@@ -5,42 +5,45 @@ import java.util.StringTokenizer;
 import java.io.FileNotFoundException;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.LongWritable;
 import java.io.PrintWriter;
 
-public class CrimeMapper extends Mapper<Text,Text,Text,Text>{
+public class CrimeMapper extends Mapper<Text,Text,Text,LongWritable>{
 	
 	@Override
     protected void map(Text key, Text value, Context context)
                     throws IOException, InterruptedException, FileNotFoundException {
+		//System.out.println(key);
 		String[] keys = key.toString().split(",");
 		String[] dates = keys[0].split("/");
-		
-		File newFile = new File("D:/Cloud/input/data/test.csv");
-		PrintWriter pw = new PrintWriter(newFile);
-		StringBuilder sb = new StringBuilder();
-		if(newFile.exists() && !newFile.isDirectory())
-		{
+		long mapperValue = 0;
+		//File newFile = new File("D:/Cloud/input/data/test.csv");
+		//PrintWriter pw = new PrintWriter(newFile);
+		StringBuilder mapperKey = new StringBuilder();
+		//if(newFile.exists() && !newFile.isDirectory())
+		//{
 			if(dates.length > 1)
 			{
-				System.out.println("Month is " + dates[0]);
+				//System.out.println("Month is " + dates[0]);
+				mapperKey.append(dates[0]);
+				mapperKey.append(' ');
 				String[] year = dates[2].split(" ");
-				System.out.println(year[0]);
-				System.out.println("key is "+keys[1]);
-				sb = new StringBuilder();
-				sb.append(dates[0]);
-				sb.append(',');
-				sb.append(year[0]);
-				sb.append(',');
-				sb.append(keys[1]);
-				sb.append(',');
-				sb.append(keys[4]);
-				sb.append(',');
-				sb.append(keys[5]);
-				sb.append('\n');
+				//System.out.println(year[0]);
+				mapperKey.append(year[0]);
+				mapperKey.append(' ');
+				mapperKey.append(keys[1]);
+				mapperKey.append(' ');
+				mapperKey.append(keys[4]);
+				System.out.println(keys[5]);
+				if(keys[5].equals("NONE"))
+					mapperValue = 0;
+				else
+					mapperValue = 1;
+				context.write(new Text(mapperKey.toString()), new LongWritable(mapperValue));
 			}
 			
-		}
-		else
+		//}
+		/*else
 		{		
 			System.out.println("Here in else");
 			sb.append("month");
@@ -57,7 +60,7 @@ public class CrimeMapper extends Mapper<Text,Text,Text,Text>{
 			
 		}
 		pw.write(sb.toString());
-	    pw.close();
+	    pw.close();*/
 		
 	}
 	

@@ -6,15 +6,19 @@ import java.util.HashMap;
 import java.util.Map;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.LongWritable;
 
-public class CrimeReducer extends Reducer<Text,Text,Text,Text>{
+
+public class CrimeReducer extends Reducer<Text,LongWritable,Text,LongWritable>{
 	
 	
-	private Text result = new Text();
     @Override
-    protected void reduce(Text key, Iterable<Text> values, Context context)
+    protected void reduce(Text key, Iterable<LongWritable> values, Context context)
                         throws IOException, InterruptedException {
-
-
+    	for(LongWritable val : values)
+    	{
+    		context.write(new Text(key), val);
+    	}
+    	
     }
 }
