@@ -31,15 +31,15 @@ public class CrimeMapper extends Mapper<Text,Text,Text,LongWritable>{
 				//System.out.println(year[0]);
 				mapperKey.append(year[0]);
 				mapperKey.append(' ');
-				mapperKey.append(keys[1]);
-				mapperKey.append(' ');
 				mapperKey.append(keys[4]);
+				mapperKey.append(' ');
+				mapperKey.append(keys[1]);
 				System.out.println(keys[5]);
 				if(keys[5].equals("NONE"))
 					mapperValue = 0;
 				else
 					mapperValue = 1;
-				context.write(new Text(mapperKey.toString()), new LongWritable(mapperValue));
+				context.write(new Text(mapperKey.toString()), new LongWritable(1));
 			}
 			
 		//}
