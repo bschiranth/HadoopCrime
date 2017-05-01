@@ -8,7 +8,9 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.LongWritable;
 import java.io.PrintWriter;
 
-public class CrimeMapper extends Mapper<Text,Text,Text,LongWritable>{
+public class CrimeMapper extends Mapper<Text,Text,Text,Text>{
+	
+	String [] allMonths = {"Dummy","Jan","Feb","Mar","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec"};
 	
 	@Override
     protected void map(Text key, Text value, Context context)
@@ -25,21 +27,24 @@ public class CrimeMapper extends Mapper<Text,Text,Text,LongWritable>{
 			if(dates.length > 1)
 			{
 				//System.out.println("Month is " + dates[0]);
-				mapperKey.append(dates[0]);
-				mapperKey.append(' ');
+				//Month
+				//mapperKey.append(dates[0]);
+				//mapperKey.append(' ');
+				mapperKey.append(allMonths[Integer.parseInt(dates[0])]).append(' ');
+				
 				String[] year = dates[2].split(" ");
 				//System.out.println(year[0]);
 				mapperKey.append(year[0]);
 				mapperKey.append(' ');
 				mapperKey.append(keys[4]);
-				mapperKey.append(' ');
-				mapperKey.append(keys[1]);
+				//mapperKey.append(' ');
+				//mapperKey.append(keys[1]);
 				System.out.println(keys[5]);
 				if(keys[5].equals("NONE"))
 					mapperValue = 0;
 				else
 					mapperValue = 1;
-				context.write(new Text(mapperKey.toString()), new LongWritable(1));
+				context.write(new Text(mapperKey.toString()), new Text(keys[1].toString()));
 			}
 			
 		//}

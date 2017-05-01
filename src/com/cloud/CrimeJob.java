@@ -126,7 +126,7 @@ job.getConfiguration().set("mapred.mapper.new-api", "true");
 // CG_MAPPER
 job.getConfiguration().set("mapred.map.tasks", "3");
 job.setMapOutputKeyClass(org.apache.hadoop.io.Text.class);
-job.setMapOutputValueClass(org.apache.hadoop.io.LongWritable.class);
+job.setMapOutputValueClass(org.apache.hadoop.io.Text.class);
 
 // CG_PARTITIONER_HIDDEN
 job.setPartitionerClass(org.apache.hadoop.mapreduce.lib.partition.HashPartitioner.class);
