@@ -38,14 +38,17 @@ public class CrimeMapper extends Mapper<Text,Text,Text,Text>{
 				mapperKey.append(year[0]);
 				mapperKey.append(' ');
 				mapperKey.append(keys[4]);
+				mapperValue.append(keys[1]);
+				mapperValue.append("-");
 				//mapperKey.append(' ');
 				//mapperKey.append(keys[1]);
 				System.out.println(keys[5]);
 				if(keys[5].equals("NONE"))
-					mapperValue = 0;
+					mapperValue.append("NONE");
 				else
-					mapperValue = 1; 
-				context.write(new Text(mapperKey.toString()), new Text(keys[1].toString()));
+					mapperValue.append("RESOLVED");
+				System.out.println("Mapper value: " + mapperValue);
+				context.write(new Text(mapperKey.toString()), new Text(mapperValue.toString()));
 			}
 			
 		//}

@@ -78,8 +78,9 @@ public class CrimeReducer extends Reducer<Text,Text,Text,Text>{
     	for(Text val : values)
     	{
     		//sum += val.get();
+    		String[] reducerValue = val.toString().split("-");
     		System.out.println(val);
-    		crimeMap.put(val.toString(), crimeMap.get(val.toString()) + 1);
+    		crimeMap.put(reducerValue[0], crimeMap.get(reducerValue[0]) + 1);
     		//context.write(new Text(key), val);
     	}
     	/*if(newFile.exists() && !newFile.isDirectory())
