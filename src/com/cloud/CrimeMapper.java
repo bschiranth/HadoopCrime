@@ -43,7 +43,7 @@ public class CrimeMapper extends Mapper<Text,Text,Text,Text>{
 				if(keys[5].equals("NONE"))
 					mapperValue = 0;
 				else
-					mapperValue = 1;
+					mapperValue = 1; 
 				context.write(new Text(mapperKey.toString()), new Text(keys[1].toString()));
 			}
 			
