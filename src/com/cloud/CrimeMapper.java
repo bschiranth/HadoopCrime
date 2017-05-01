@@ -18,10 +18,11 @@ public class CrimeMapper extends Mapper<Text,Text,Text,Text>{
 		//System.out.println(key);
 		String[] keys = key.toString().split(",");
 		String[] dates = keys[0].split("/");
-		long mapperValue = 0;
+		//long mapperValue = 0;
 		//File newFile = new File("D:/Cloud/input/data/test.csv");
 		//PrintWriter pw = new PrintWriter(newFile);
 		StringBuilder mapperKey = new StringBuilder();
+		StringBuilder mapperValue = new StringBuilder();
 		//if(newFile.exists() && !newFile.isDirectory())
 		//{
 			if(dates.length > 1)
