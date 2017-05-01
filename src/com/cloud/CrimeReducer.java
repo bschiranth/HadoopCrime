@@ -72,7 +72,9 @@ public class CrimeReducer extends Reducer<Text,Text,Text,Text>{
     	String[] allKeys = key.toString().split(" ");
     	for(String str:allKeys) pw.append(str+",");
     	
-    	
+    	long totalCrimeCount = 0;
+    	long totalCrimeResolved = 0;
+    	double resolution = 0.0;
 		//PrintWriter pw = new PrintWriter(newFile);
     	//long sum = 0;
     	for(Text val : values)
@@ -81,8 +83,14 @@ public class CrimeReducer extends Reducer<Text,Text,Text,Text>{
     		String[] reducerValue = val.toString().split("-");
     		System.out.println(val);
     		crimeMap.put(reducerValue[0], crimeMap.get(reducerValue[0]) + 1);
+    		++totalCrimeCount;
+    		if(reducerValue[1].equals("RESOLVED"))
+    			++totalCrimeResolved;
     		//context.write(new Text(key), val);
     	}
+    	
+    	resolution = (double)totalCrimeResolved / totalCrimeCount;
+    	System.out.println(totalCrimeCount + " " + totalCrimeResolved + " " + resolution);
     	/*if(newFile.exists() && !newFile.isDirectory())
 		{
     		sb.append(key.toString());
@@ -98,6 +106,8 @@ public class CrimeReducer extends Reducer<Text,Text,Text,Text>{
     			sb.append(",");
     		}
     	}
+    	sb.append("Resolutuion->" + resolution);
+    	sb.append(",");
     	sb.append("\n");
     	pw.append(sb.toString());
 	    context.write(key, new Text(sb.toString()));
