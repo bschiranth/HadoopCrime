@@ -13,6 +13,8 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.FileReader;
 import java.util.Arrays;
+import java.io.BufferedReader;
+
 public class CrimeReducer extends Reducer<Text,Text,Text,Text>{
 	Map<String, Integer> crimeMap;
 	Map<String, Integer> crimeIndexMap;
@@ -181,16 +183,55 @@ public class CrimeReducer extends Reducer<Text,Text,Text,Text>{
     @Override
     protected void cleanup(Context context) throws IOException, InterruptedException, FileNotFoundException {
     	float finalCrimeRating;
+    	String readFromCSV = "D:/Cloud/input/data/test.csv";
+    	BufferedReader br = null;
+    	String line = "";
     	File ratingFile = new File("D:/Cloud/input/data/rating.csv");
     	PrintWriter writer = new PrintWriter(ratingFile);
+    	StringBuilder builder = new StringBuilder();
+    	ArrayList<Float> finalCrimeRatingList = new ArrayList<Float>();
     	//ArrayList<Long>
     	for(long val: ratingsList)
     	{
     		System.out.println("val: " + val + " Min: " + minCrimeRating + " Max: " + maxCrimeRating);
     		finalCrimeRating = (float)((val - minCrimeRating) * 10)/(maxCrimeRating - minCrimeRating);
     		System.out.println("FCR: " + finalCrimeRating);
+    		finalCrimeRatingList.add(finalCrimeRating);
     	}
     	pw.flush();
     	pw.close();
+    	
+    	try{
+    		br = new BufferedReader(new FileReader(readFromCSV));
+    		int arrayListItr = 0;
+    		while ((line = br.readLine()) != null) {
+    			String[] data = line.split(",");
+    			//System.out.println(data[0]); 
+    			builder.append(data[0]);
+    			builder.append(",");
+    			builder.append(data[1]);
+    			builder.append(",");
+    			builder.append(data[2]);
+    			builder.append(",");
+    			builder.append(finalCrimeRatingList.get(arrayListItr++));
+    			builder.append("\n");
+    		}
+    	} catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    	
+    	writer.append(builder.toString());
+    	writer.flush();
+    	writer.close();
     }
 }
