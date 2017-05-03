@@ -182,6 +182,31 @@ public class CrimeReducer extends Reducer<Text,Text,Text,Text>{
     
     @Override
     protected void cleanup(Context context) throws IOException, InterruptedException, FileNotFoundException {
+    	
+    	HashMap<String, Double> xMap = new HashMap<String, Double>();
+    	HashMap<String, Double> yMap = new HashMap<String, Double>();
+    	xMap.put("BAYVIEW",-122.399587704189);
+    	xMap.put("CENTRAL",-122.413934584561);
+    	xMap.put("INGLESIDE",-122.435522409608);
+    	xMap.put("MISSION",-122.435255043478);
+    	xMap.put("NORTHERN",-122.438014201217);
+    	xMap.put("PARK",-122.440416650468);
+    	xMap.put("RICHMOND",-122.436960836182);
+    	xMap.put("SOUTHERN",-122.425978885563);
+    	xMap.put("TARAVAL",-122.437265932605);
+    	xMap.put("TENDERLOIN",-122.415508242782);
+    	
+    	yMap.put("BAYVIEW",37.761254627775);
+    	yMap.put("CENTRAL",37.7641661408178);
+    	yMap.put("INGLESIDE",37.7598261020898);
+    	yMap.put("MISSION",37.7653138220827);
+    	yMap.put("NORTHERN",37.7625453805529);
+    	yMap.put("PARK",37.7599638749972);
+    	yMap.put("RICHMOND",37.7634657699002);
+    	yMap.put("SOUTHERN",37.75674896328);
+    	yMap.put("TARAVAL",37.7474130915646);
+    	yMap.put("TENDERLOIN",37.7816542806076);
+    	
     	float finalCrimeRating;
     	String readFromCSV = "D:/Cloud/input/data/test.csv";
     	BufferedReader br = null;
@@ -214,6 +239,10 @@ public class CrimeReducer extends Reducer<Text,Text,Text,Text>{
     			builder.append(data[2]);
     			builder.append(",");
     			builder.append(finalCrimeRatingList.get(arrayListItr++));
+    			builder.append(",");
+    			builder.append(xMap.get(data[2]));
+    			builder.append(",");
+    			builder.append(yMap.get(data[2]));
     			builder.append("\n");
     		}
     	} catch (FileNotFoundException e) {
