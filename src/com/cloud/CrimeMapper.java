@@ -39,7 +39,7 @@ public class CrimeMapper extends Mapper<Text,Text,Text,Text>{
 				mapperKey.append(' ');
 				mapperKey.append(keys[4]);
 				mapperValue.append(keys[1]);
-				mapperValue.append("-");
+				mapperValue.append("!");
 				//mapperKey.append(' ');
 				//mapperKey.append(keys[1]);
 				System.out.println(keys[5]);

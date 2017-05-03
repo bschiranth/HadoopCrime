@@ -129,7 +129,7 @@ public class CrimeReducer extends Reducer<Text,Text,Text,Text>{
     	for(Text val : values)
     	{
     		//sum += val.get();
-    		String[] reducerValue = val.toString().split("-");
+    		String[] reducerValue = val.toString().split("!");
     		System.out.println(val);
     		crimeMap.put(reducerValue[0], crimeMap.get(reducerValue[0]) + 1);
     		++totalCrimeCount;
