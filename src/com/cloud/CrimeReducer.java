@@ -147,7 +147,7 @@ public class CrimeReducer extends Reducer<Text,Text,Text,Text>{
     		sb.append(",");
 		}
     	*/
-    	long individualRating = 0;
+    	//long individualRating = 0;
     	for(Map.Entry<String, Integer> entry : crimeMap.entrySet()) {
     		if(newFile.exists() && !newFile.isDirectory())
     		{
@@ -225,6 +225,18 @@ public class CrimeReducer extends Reducer<Text,Text,Text,Text>{
     	}
     	pw.flush();
     	pw.close();
+    	builder.append("month");
+    	builder.append(",");
+    	builder.append("year");
+    	builder.append(",");
+    	builder.append("district");
+    	builder.append(",");
+    	builder.append("final_crime_rating");
+    	builder.append(",");
+    	builder.append("latitude");
+    	builder.append(",");
+    	builder.append("longitude");
+    	builder.append("\n");
     	
     	try{
     		br = new BufferedReader(new FileReader(readFromCSV));
